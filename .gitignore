@@ -13,3 +13,6 @@ pycache/
 
 # ▶️ IDE
 .idea
+
+creds/
+test_access.py
