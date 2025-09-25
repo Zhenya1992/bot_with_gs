@@ -6,9 +6,16 @@ def button_get_id():
     """Кнопка для получения id"""
 
     return ReplyKeyboardMarkup(
-        keyboard=[[KeyboardButton(text="🔍 Получить id")]], resize_keyboard=True
+        keyboard=[[KeyboardButton(text="🔍 Получить ID")]], resize_keyboard=True
     )
 
+def contact_with_admin_kb():
+    """Кнопка для связи с администратором"""
+
+    builder = ReplyKeyboardBuilder()
+    builder.button(text="📞 Связаться с администратором")
+    builder.adjust(1)
+    return builder.as_markup(resize_keyboard=True)
 
 def drive_menu():
     """Основная клавиатура для водителя"""

@@ -12,3 +12,7 @@ def check_driver(user_id: int):
 
     return user_id in DRIVERS
 
+def get_admin_id():
+    """Получение ID администратора."""
+
+    return MANAGER_ID
