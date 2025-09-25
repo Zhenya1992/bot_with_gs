@@ -47,3 +47,13 @@ def back_button_kb():
     builder = ReplyKeyboardBuilder()
     builder.button(text="🔙 Назад")
     return builder.as_markup(resize_keyboard=True)
+
+def income_menu_kb():
+    """Клавиатура для меню дохода водителя"""
+
+    build = ReplyKeyboardBuilder()
+    build.button(text="Оплата за заказ")
+    build.button(text="Доплата по заказу")
+    build.button(text="⬅️ Назад")
+    build.adjust(2, 1)
+    return build.as_markup(resize_keyboard=True)
