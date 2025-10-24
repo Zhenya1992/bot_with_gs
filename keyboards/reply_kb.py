@@ -42,18 +42,21 @@ def admin_menu():
 
 
 def back_button_kb():
-    """Клавиатура для кнопки назад"""
+    """клавиатура для шага назад"""
 
     builder = ReplyKeyboardBuilder()
-    builder.button(text="🔙 Назад")
+    builder.button(text="Назад ⬅️")
     return builder.as_markup(resize_keyboard=True)
 
-def income_menu_kb():
-    """Клавиатура для меню дохода водителя"""
 
-    build = ReplyKeyboardBuilder()
-    build.button(text="Оплата за заказ")
-    build.button(text="Доплата по заказу")
-    build.button(text="⬅️ Назад")
-    build.adjust(2, 1)
-    return build.as_markup(resize_keyboard=True)
+
+def reply_income_menu():
+    """клавиатура для оплаты заказа"""
+
+    builder = ReplyKeyboardBuilder()
+    builder.button(text="Оплата за заказ")
+    builder.button(text="Доплата по заказу")
+    builder.button(text="⬅️ Назад")
+    builder.adjust(2, 1)
+    return builder.as_markup(resize_keyboard=True)
+
