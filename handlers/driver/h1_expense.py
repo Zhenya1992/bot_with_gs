@@ -27,7 +27,7 @@ async def start_expense(message: Message, state: FSMContext):
     await state.set_state(ExpenseStates.waiting_for_amount_and_comment)
 
 
-@router.message(ExpenseStates.waiting_for_amount_and_comment, F.text == "🔙 Назад")
+@router.message(F.text == "Назад ⬅️", ExpenseStates.waiting_for_amount_and_comment)
 async def back_from_expense(message: Message, state: FSMContext):
     """Возврат в водительский меню"""
 
