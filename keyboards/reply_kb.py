@@ -23,7 +23,7 @@ def drive_menu():
     builder = ReplyKeyboardBuilder()
     builder.button(text="Расход")
     builder.button(text="Доход")
-    builder.button(text="Отчёт")
+    builder.button(text="Отчёт 📊")
     builder.adjust(1, 1, 1)
     return builder.as_markup(resize_keyboard=True)
 
@@ -60,3 +60,12 @@ def reply_income_menu():
     builder.adjust(2, 1)
     return builder.as_markup(resize_keyboard=True)
 
+def report_menu_driver_kb():
+    """Клавиатура для отчёта для водителя"""
+
+    builder = ReplyKeyboardBuilder()
+    builder.button(text="Текущий день ☀️")
+    builder.button(text="Текущий месяц 📅")
+    builder.button(text="⬅️ Назад")
+    builder.adjust(1, 1, 1)
+    return builder.as_markup(resize_keyboard=True)
