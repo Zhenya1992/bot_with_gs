@@ -36,7 +36,7 @@ def admin_menu():
     builder.button(text="Выгрузка")
     builder.button(text="Добавить водителя")
     builder.button(text="Удалить водителя")
-    builder.button(text="Назад")
+    builder.button(text="Назад ◀️")
     builder.adjust(1, 1, 2, 1)
     return builder.as_markup(resize_keyboard=True)
 
