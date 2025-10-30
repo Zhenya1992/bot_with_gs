@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from datetime import datetime
 
 from keyboards.reply_kb import report_menu_driver_kb
-from services.google_sheets import get_records_by_day
+from services.google_sheets import get_records_by_day, get_records_by_month
 
 router = Router()
 
@@ -56,9 +56,9 @@ async def report_current_day(message: Message):
 
         try:
             amt = float(amount.replace(',', '.'))
-            if record_type == "Доход":
+            if record_type == "доход":
                 total_income += amt
-            elif record_type == "Расход":
+            elif record_type == "расход":
                 total_expense += amt
         except ValueError:
             pass
@@ -68,3 +68,25 @@ async def report_current_day(message: Message):
     text_lines.append(f"\nПрибыль: {total_income - total_expense:.2f}")
 
     await message.answer("\n".join(text_lines))
+
+
+@router.message(F.text == "Текущий месяц 📅")
+async def report_current_month(message: Message):
+    """Отображение отчёта за текущий месяц."""
+
+    now = datetime.now()
+    user_id = message.from_user.id
+
+    records = get_records_by_month(user_id=user_id, month=now.month, year=now.year)
+    if not records:
+        await message.answer("Нет данных за текущий месяц.")
+        return
+
+    total_income = sum(float(r[4]) for r in records if r[2].lower() == "доход")
+    total_expense = sum(float(r[4]) for r in records if r[2].lower() == "расход")
+    total_profit = total_income - total_expense
+
+    await message.answer(f"Отчёт за {MONTHS[now.month]} {now.year}:\n"
+                         f"Всего доходов: {total_income:.2f}\n"
+                         f"Всего расходов: {total_expense:.2f}\n"
+                         f"Прибыль: {total_profit:.2f}")
