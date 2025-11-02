@@ -15,7 +15,7 @@ class IncomeStates(StatesGroup):
     waiting_for_comment = State()
 
 
-@router.message(F.text == "Доход")
+@router.message(F.text == "Доход ➕")
 async def show_income_menu(message: Message, state: FSMContext):
     """Показ меню для регистрации дохода"""
 
@@ -23,7 +23,7 @@ async def show_income_menu(message: Message, state: FSMContext):
     await state.set_state(IncomeStates.choosing_type)
 
 
-@router.message(IncomeStates.choosing_type, F.text.in_(["Оплата за заказ", "Доплата по заказу"]))
+@router.message(IncomeStates.choosing_type, F.text.in_(["Оплата за заказ 💰", "Доплата по заказу 🫰"]))
 async def ask_income_amount(message: Message, state: FSMContext):
     """Запрос суммы дохода"""
 
