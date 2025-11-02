@@ -15,7 +15,7 @@ class ExpenseStates(StatesGroup):
     waiting_for_amount_and_comment = State()
 
 
-@router.message(F.text == "Расход")
+@router.message(F.text == "Расход ➖")
 async def start_expense(message: Message, state: FSMContext):
     """Начало добавления расхода"""
 

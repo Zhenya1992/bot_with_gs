@@ -49,7 +49,7 @@ async def report_current_day(message: Message):
     total_income = total_expense = 0
     for record in records:
         time, record_type, category, amount, comment = record[1], record[2], record[3], record[4], record[5]
-        line = f"{time}    {record_type.upper()}   {amount}руб. "
+        line = f"{time}    {record_type.upper()}   {amount} руб. "
         if comment:
             line += f"{comment}"
         text_lines.append(line)
