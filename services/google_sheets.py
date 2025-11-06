@@ -63,3 +63,29 @@ def get_records_by_month(user_id: int, month: str, year: str):
         except (ValueError, IndexError):
             continue
     return filtered_rows
+
+
+def get_drivers_from_sheets():
+    """Функция для получения всех уникальных водителей из столбца Telegram ID"""
+
+    try:
+        all_data = sheet.get_all_values()
+
+        if len(all_data) <= 1:
+            return []
+
+        drivers_ids = set()
+
+        for row in all_data[1:]:
+            try:
+                if len(row) > 6 and row[6].strip():
+                    telegram_id = int(row[6].strip())
+                    drivers_ids.add(telegram_id)
+            except (ValueError, IndexError):
+                continue
+        print(f"Найдены ID водителей: {drivers_ids}")
+        return sorted(list(drivers_ids))
+
+    except Exception as e:
+        print(f"Ошибка при получении списка водителей: {e}")
+        return []
