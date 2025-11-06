@@ -2,7 +2,7 @@ from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
-from services.google_sheets import add_record
+from services.google_sheets import add_record, get_drivers_from_sheets
 from keyboards.reply_kb import admin_menu
 router = Router()
 
@@ -29,6 +29,17 @@ async def get_id_drivers(message: Message, state: FSMContext):
     new_driver_id = int(message.text)
 
     await state.update_data(new_driver_id=new_driver_id)
+    existing_drivers_ids = get_drivers_from_sheets()
+    if not existing_drivers_ids:
+        await message.answer("Ошибка получения данных из Google Sheets")
+        return
+    if new_driver_id in existing_drivers_ids:
+        await message.answer(
+            f"Водитель с таким ID уже существует:\n{new_driver_id}",
+            reply_markup=admin_menu())
+        await state.clear()
+        return
+
     await state.set_state(AddDriver.waiting_name)
     await message.answer(f"Введите имя водителя")
 
