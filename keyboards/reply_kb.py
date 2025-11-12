@@ -68,3 +68,14 @@ def report_menu_driver_kb():
     builder.button(text="⬅️ Назад")
     builder.adjust(1, 1, 1)
     return builder.as_markup(resize_keyboard=True)
+
+def report_menu_admin_kb():
+    """Клавиатура для отчёта администратора"""
+
+    builder = ReplyKeyboardBuilder()
+    builder.button(text="Текущий день ☀️")
+    builder.button(text="Текущий месяц 📅")
+    builder.button(text="За всё время 🗓️")
+    builder.button(text="Назад ◀️")
+    builder.adjust(2, 1, 1)
+    return builder.as_markup(resize_keyboard=True)
