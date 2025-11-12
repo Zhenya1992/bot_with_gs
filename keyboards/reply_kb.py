@@ -73,7 +73,7 @@ def report_menu_admin_kb():
     """Клавиатура для отчёта администратора"""
 
     builder = ReplyKeyboardBuilder()
-    builder.button(text="Текущий день ☀️")
+    builder.button(text="Сегодня 🕛")
     builder.button(text="Текущий месяц 📅")
     builder.button(text="За всё время 🗓️")
     builder.button(text="Назад ◀️")

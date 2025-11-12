@@ -89,3 +89,6 @@ def get_drivers_from_sheets():
     except Exception as e:
         print(f"Ошибка при получении списка водителей: {e}")
         return []
+
+def get_admin_summary():
+    pass
