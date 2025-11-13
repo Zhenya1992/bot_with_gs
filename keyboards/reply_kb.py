@@ -74,7 +74,7 @@ def report_menu_admin_kb():
 
     builder = ReplyKeyboardBuilder()
     builder.button(text="Сегодня 🕛")
-    builder.button(text="Текущий месяц 📅")
+    builder.button(text="Текущий месяц 🈷️")
     builder.button(text="За всё время 🗓️")
     builder.button(text="Назад ◀️")
     builder.adjust(2, 1, 1)

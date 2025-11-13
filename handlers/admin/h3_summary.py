@@ -22,7 +22,7 @@ async def admin_summary_today(message: Message):
     await message.answer(f"Отчет за сегодня:\n{report}")
 
 
-@router.message(F.text == "Текущий месяц 📅")
+@router.message(F.text == "Текущий месяц 🈷️")
 async def admin_summary_month(message: Message):
     """Отчет за месяц"""
 
