@@ -2,6 +2,7 @@ from aiogram.types import Message
 from aiogram import F, Router
 from keyboards.reply_kb import drive_menu, admin_menu, button_get_id, contact_with_admin_kb
 from utils.auth import check_admin, check_driver, get_admin_id
+from zoneinfo import ZoneInfo
 
 router = Router()
 
@@ -37,12 +38,13 @@ async def contact_with_administrator(message: Message):
     user_name = message.from_user.full_name
     username = f"@{message.from_user.username}" if message.from_user.username else "Не указан"
 
+    local_time = message.date.astimezone(ZoneInfo("Europe/Minsk"))
     admin_message = (
         f"📞 Новый запрос на связь от пользователя:\n"
         f"👤 Имя: {user_name}\n"
         f"🆔 ID: {user_id}\n"
         f"📱 Username: {username}\n"
-        f"⏰ Время: {message.date.strftime('%d.%m.%Y %H:%M')}"
+        f"⏰ Время: {local_time.strftime('%d.%m.%Y %H:%M')}"
     )
 
     admin_id = get_admin_id()
