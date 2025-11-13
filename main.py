@@ -5,6 +5,7 @@ import logging
 from handlers.driver import h1_expense, h2_income, h3_report
 from handlers import start
 from handlers.admin import h0_back_to_admin_menu, h1_add_drivers, h2_remove_drivers, h3_summary
+from services.google_sheets import update_drivers_in_config
 
 logging.basicConfig(level=logging.INFO)
 
@@ -22,6 +23,8 @@ dp.include_router(h3_summary.router)
 async def main():
     """Корутина для запуска бота"""
 
+    drivers = update_drivers_in_config()
+    print(f"🚗 Загружено {len(drivers)} водителей при запуске: {drivers}")
     await dp.start_polling(bot)
 
 
