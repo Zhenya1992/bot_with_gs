@@ -3,7 +3,10 @@ from datetime import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-from config import GOOGLE_CREDENTIALS_PATH
+import config
+from config import GOOGLE_CREDENTIALS_PATH, DRIVERS
+
+from zoneinfo import ZoneInfo
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
@@ -22,7 +25,7 @@ sheet = spreadsheet.sheet1
 def add_record(record_type: str, subcategory: str, amount: float, comment: str, user_id: int, username: str):
     """Функция для записи в таблицу Google Sheets"""
 
-    now = datetime.now()
+    now = datetime.now(ZoneInfo("Europe/Minsk"))
     row = [
         now.strftime('%d.%m.%Y'),
         now.strftime('%H:%M:%S'),
@@ -34,6 +37,8 @@ def add_record(record_type: str, subcategory: str, amount: float, comment: str, 
         username
     ]
     sheet.append_row(row, value_input_option="USER_ENTERED")
+
+    update_drivers_in_config()
 
 
 def get_records_by_day(user_id: int, date: str):
@@ -74,13 +79,13 @@ def get_drivers_from_sheets():
         if len(all_data) <= 1:
             return []
 
-        drivers_ids = set()
+        drivers_ids = list()
 
         for row in all_data[1:]:
             try:
                 if len(row) > 6 and row[6].strip():
                     telegram_id = int(row[6].strip())
-                    drivers_ids.add(telegram_id)
+                    drivers_ids.append(telegram_id)
             except (ValueError, IndexError):
                 continue
         print(f"Найдены ID водителей: {drivers_ids}")
@@ -89,6 +94,26 @@ def get_drivers_from_sheets():
     except Exception as e:
         print(f"Ошибка при получении списка водителей: {e}")
         return []
+
+
+def update_drivers_in_config():
+    """Функция для обновления списка водителей"""
+
+    try:
+        current_drivers = get_drivers_from_sheets()
+        if not isinstance(config.DRIVERS, list):
+            config.DRIVERS = []
+
+        merged = set(config.DRIVERS) | set(current_drivers)
+        config.DRIVERS[:] = sorted(list(merged))
+
+        print(f"✅ Список DRIVERS обновлен: {config.DRIVERS}")
+        return config.DRIVERS
+
+    except Exception as e:
+        print(f"❌ Ошибка при обновлении DRIVERS: {e}")
+        return []
+
 
 def get_admin_summary():
     pass
