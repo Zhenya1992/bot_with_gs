@@ -2,6 +2,13 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder, ReplyKeyboardMarkup
 from aiogram.types import KeyboardButton
 
 
+def welcome_button():
+    """Кнопка приветствия"""
+
+    return ReplyKeyboardMarkup(
+        keyboard=[[KeyboardButton(text="👋 Привет")]], resize_keyboard=True
+        )
+
 def button_get_id():
     """Кнопка для получения id"""
 
@@ -17,7 +24,7 @@ def contact_with_admin_kb():
     builder.adjust(1)
     return builder.as_markup(resize_keyboard=True)
 
-def drive_menu():
+def driver_menu():
     """Основная клавиатура для водителя"""
 
     builder = ReplyKeyboardBuilder()

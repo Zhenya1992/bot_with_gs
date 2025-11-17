@@ -3,7 +3,7 @@ from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from services.google_sheets import add_record
-from keyboards.reply_kb import admin_menu
+from keyboards.reply_kb import admin_menu, driver_menu
 router = Router()
 
 
@@ -53,4 +53,12 @@ async def get_name_drivers(message: Message, state: FSMContext):
     await message.answer(
         f"Добавлен новый водитель:\n{new_driver_id}\n",
         reply_markup=admin_menu())
+
+
+    try:
+        await message.bot.send_message(new_driver_id, text='Теперь Вы можете пользоваться ботом',
+                                       reply_markup=driver_menu())
+    except:
+        await message.answer('Не удалось отправить сообщение')
+
     await state.clear()

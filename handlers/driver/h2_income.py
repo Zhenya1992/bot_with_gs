@@ -3,7 +3,7 @@ from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 
-from keyboards.reply_kb import reply_income_menu, back_button_kb, drive_menu
+from keyboards.reply_kb import reply_income_menu, back_button_kb, driver_menu
 from services.google_sheets import add_record
 
 router = Router()
@@ -82,7 +82,7 @@ async def confirm_income(message: Message, state: FSMContext):
         f"Тип: {income_type}\n"
         f"Сумма: {amount:.2f} ₽\n"
         f"Комментарий: {comment}",
-        reply_markup=drive_menu()
+        reply_markup=driver_menu()
     )
     await state.clear()
 
@@ -92,4 +92,4 @@ async def go_back(message: Message, state: FSMContext):
     """Возврат в главное меню дохода"""
 
     await state.clear()
-    await message.answer("Возврат в меню ", reply_markup=drive_menu())
+    await message.answer("Возврат в меню ", reply_markup=driver_menu())
