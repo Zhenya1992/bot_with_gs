@@ -16,3 +16,8 @@ def get_admin_id():
     """Получение ID администратора."""
 
     return MANAGER_ID
+
+def check_user_id(user_id: int):
+    """Проверка пользователя по id."""
+
+    return user_id in DRIVERS

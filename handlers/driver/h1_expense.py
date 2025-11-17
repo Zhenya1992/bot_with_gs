@@ -3,7 +3,7 @@ from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 
-from keyboards.reply_kb import back_button_kb, drive_menu
+from keyboards.reply_kb import back_button_kb, driver_menu
 from services.google_sheets import add_record
 
 router = Router()
@@ -32,7 +32,7 @@ async def back_from_expense(message: Message, state: FSMContext):
     """Возврат в водительский меню"""
 
     await state.clear()
-    await message.answer("Возврат в главное меню", reply_markup=drive_menu())
+    await message.answer("Возврат в главное меню", reply_markup=driver_menu())
 
 
 @router.message(ExpenseStates.waiting_for_amount_and_comment)
@@ -60,6 +60,6 @@ async def process_expense(message: Message, state: FSMContext):
         f"Расход зарегистрирован:\n"
         f"Сумма: {amount:.2f} byn.\n"
         f"Комментарий: {comment}",
-        reply_markup=drive_menu()
+        reply_markup=driver_menu()
     )
     await state.clear()
