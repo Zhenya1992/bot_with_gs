@@ -9,12 +9,14 @@ def welcome_button():
         keyboard=[[KeyboardButton(text="👋 Привет")]], resize_keyboard=True
         )
 
-def button_get_id():
-    """Кнопка для получения id"""
+def wait_button():
+    """Кнопка ожидания для водителя"""
 
-    return ReplyKeyboardMarkup(
-        keyboard=[[KeyboardButton(text="🔍 Получить ID")]], resize_keyboard=True
-    )
+    builder = ReplyKeyboardBuilder()
+    builder.button(text="Ожидание связи от администратора 🕒 ...")
+    builder.adjust(1)
+    return builder.as_markup(resize_keyboard=True)
+
 
 def contact_with_admin_kb():
     """Кнопка для связи с администратором"""
