@@ -1,8 +1,12 @@
 from aiogram.types import Message
 from aiogram import F, Router
 from keyboards.reply_kb import driver_menu, admin_menu, contact_with_admin_kb, wait_button
-from utils.auth import check_admin, check_driver, get_admin_id, check_user_id
+from utils.auth import check_admin, get_admin_id, check_user_id
 from zoneinfo import ZoneInfo
+from keyboards.inline_kb import add_driver_inline_kb_with_token
+from services.request_store import save_request
+import uuid
+
 
 router = Router()
 
@@ -24,10 +28,10 @@ async def start(message: Message):
 
 @router.message(F.text == "📞 Связаться с администратором")
 async def contact_with_administrator(message: Message):
-    """Обработчик кнопки связаться с администратором"""
+    """"Функция для связи с администратором и добавление в Google Sheets"""
 
     user_id = message.from_user.id
-    user_name = message.from_user.full_name
+    user_name = message.from_user.full_name or "Без имени"
     username = f"@{message.from_user.username}" if message.from_user.username else "Не указан"
 
     local_time = message.date.astimezone(ZoneInfo("Europe/Minsk"))
@@ -39,11 +43,21 @@ async def contact_with_administrator(message: Message):
         f"⏰ Время: {local_time.strftime('%d.%m.%Y %H:%M')}"
     )
 
-    admin_id = get_admin_id()
-    try:
-        await message.bot.send_message(admin_id, admin_message)
-        await message.answer("✅ Ваше сообщение отправлено администратору!\nОжидайте подключения.",
-                             reply_markup=wait_button())
+    token = uuid.uuid4().hex
+    save_request(
+        token,
+        {"user_id": user_id, "user_name": user_name, "username": username}
+    )
 
-    except Exception as e:
-        return print(f"Error{e}")
+    admin_id = get_admin_id()
+
+    await message.bot.send_message(
+        admin_id,
+        admin_message,
+        reply_markup=add_driver_inline_kb_with_token(token, user_name)
+    )
+
+    await message.answer(
+        "✅ Ваше сообщение отправлено администратору!\nОжидайте подключения.",
+        reply_markup=wait_button()
+    )
