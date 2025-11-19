@@ -1,19 +1,12 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery
-from aiogram.fsm.state import StatesGroup, State
 from services.google_sheets import add_record
 from keyboards.reply_kb import driver_menu
 from services.request_store import get_request, remove_request
 
+
 router = Router()
 
-
-# class AddDriver(StatesGroup):
-#     """Класс добавления водителей"""
-#
-#     waiting_id = State()
-#     waiting_name = State()
-#
 
 @router.callback_query(F.data.startswith("add_driver:"))
 async def add_driver_from_callback(callback: CallbackQuery):
