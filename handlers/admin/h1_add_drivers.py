@@ -26,6 +26,8 @@ async def ask_for_driver_id(message: Message, state: FSMContext):
 
 @router.callback_query(F.data.startswith("add_driver:"))
 async def add_driver_from_callback(callback: CallbackQuery):
+    """Функция добавления водителя с помощью инлайн-кнопки"""
+
     _, token = callback.data.split(":", 1)
 
     data = get_request(token)
