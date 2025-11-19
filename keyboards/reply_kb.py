@@ -43,7 +43,7 @@ def admin_menu():
     builder = ReplyKeyboardBuilder()
     builder.button(text="Сводный отчёт 📈")
     builder.button(text="Выгрузка ⬇️")
-    builder.button(text="Добавить водителя ✅")
+    # builder.button(text="Добавить водителя ✅")
     builder.button(text="Удалить водителя ❌")
     builder.button(text="Назад ◀️")
     builder.adjust(1, 1, 2, 1)
