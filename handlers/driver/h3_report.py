@@ -82,11 +82,27 @@ async def report_current_month(message: Message):
         await message.answer("Нет данных за текущий месяц.")
         return
 
-    total_income = sum(float(r[4]) for r in records if r[2].lower() == "доход")
-    total_expense = sum(float(r[4]) for r in records if r[2].lower() == "расход")
+    total_income = 0
+    total_expense = 0
+
+    for r in records:
+        record_type = r[2].lower()
+        amount_str = r[4]
+        try:
+            amt = float(amount_str.replace(',', '.'))
+        except (ValueError, AttributeError):
+            amt = 0
+
+        if record_type == "доход":
+            total_income += amt
+        elif record_type == "расход":
+            total_expense += amt
+
     total_profit = total_income - total_expense
 
-    await message.answer(f"Отчёт за {MONTHS[now.month]} {now.year}:\n"
-                         f"Всего доходов: {total_income:.2f}\n"
-                         f"Всего расходов: {total_expense:.2f}\n"
-                         f"Прибыль: {total_profit:.2f}")
+    await message.answer(
+        f"Отчёт за {MONTHS[now.month]} {now.year}:\n"
+        f"Всего доходов: {total_income:.2f}\n"
+        f"Всего расходов: {total_expense:.2f}\n"
+        f"Прибыль: {total_profit:.2f}"
+    )
