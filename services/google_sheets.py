@@ -138,7 +138,7 @@ def get_admin_summary(period:str):
             continue
 
         try:
-            amount = float(amount)
+            amount = float(amount.replecace(',', '.'))
         except ValueError:
             continue
 
@@ -167,3 +167,9 @@ def get_admin_summary(period:str):
     lines.append(f"Баланс : {total_income - total_expense:.2f}")
 
     return "\n".join(lines) if lines else "Нет данных за выбранный период"
+
+
+def get_all_data():
+    """"Функция для получения всех данных из таблицы"""
+
+    return sheet.get_all_values()
