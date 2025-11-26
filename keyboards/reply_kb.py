@@ -2,12 +2,12 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder, ReplyKeyboardMarkup
 from aiogram.types import KeyboardButton
 
 
-def welcome_button():
-    """Кнопка приветствия"""
-
-    return ReplyKeyboardMarkup(
-        keyboard=[[KeyboardButton(text="👋 Привет")]], resize_keyboard=True
-        )
+# def welcome_button():
+#     """Кнопка приветствия"""
+#
+#     return ReplyKeyboardMarkup(
+#         keyboard=[[KeyboardButton(text="👋 Привет")]], resize_keyboard=True
+#         )
 
 def wait_button():
     """Кнопка ожидания для водителя"""
@@ -45,12 +45,12 @@ def admin_menu():
     builder.button(text="Выгрузка ⬇️")
     builder.button(text="Удалить водителя ❌")
     builder.button(text="Назад ◀️")
-    builder.adjust(1, 1, 2, 1)
+    builder.adjust(1, 1, 1, 1)
     return builder.as_markup(resize_keyboard=True)
 
 
 def back_button_kb():
-    """клавиатура для шага назад"""
+    """Клавиатура для шага назад"""
 
     builder = ReplyKeyboardBuilder()
     builder.button(text="Назад ⬅️")
@@ -58,7 +58,7 @@ def back_button_kb():
 
 
 def reply_income_menu():
-    """клавиатура для оплаты заказа"""
+    """Клавиатура для оплаты заказа"""
 
     builder = ReplyKeyboardBuilder()
     builder.button(text="Оплата за заказ 💰")
