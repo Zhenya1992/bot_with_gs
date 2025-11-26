@@ -26,6 +26,7 @@ def contact_with_admin_kb():
     builder.adjust(1)
     return builder.as_markup(resize_keyboard=True)
 
+
 def driver_menu():
     """Основная клавиатура для водителя"""
 
@@ -67,6 +68,7 @@ def reply_income_menu():
     builder.adjust(2, 1)
     return builder.as_markup(resize_keyboard=True)
 
+
 def report_menu_driver_kb():
     """Клавиатура для отчёта для водителя"""
 
@@ -77,6 +79,7 @@ def report_menu_driver_kb():
     builder.adjust(1, 1, 1)
     return builder.as_markup(resize_keyboard=True)
 
+
 def report_menu_admin_kb():
     """Клавиатура для отчёта администратора"""
 
@@ -86,4 +89,16 @@ def report_menu_admin_kb():
     builder.button(text="За всё время 🗓️")
     builder.button(text="Назад ◀️")
     builder.adjust(2, 1, 1)
+    return builder.as_markup(resize_keyboard=True)
+
+
+def export_period_kb():
+    """"Кнопка выгрузки данных за выбранный период"""
+
+    builder = ReplyKeyboardBuilder()
+    builder.button(text="За день 🌞")
+    builder.button(text="За месяц 🌙")
+    builder.button(text="За всё время 📅")
+    builder.button(text="Назад ◀️")
+    builder.adjust(1, 1, 1)
     return builder.as_markup(resize_keyboard=True)
