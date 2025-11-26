@@ -1,13 +1,5 @@
-from aiogram.utils.keyboard import ReplyKeyboardBuilder, ReplyKeyboardMarkup
-from aiogram.types import KeyboardButton
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
-
-# def welcome_button():
-#     """Кнопка приветствия"""
-#
-#     return ReplyKeyboardMarkup(
-#         keyboard=[[KeyboardButton(text="👋 Привет")]], resize_keyboard=True
-#         )
 
 def wait_button():
     """Кнопка ожидания для водителя"""
