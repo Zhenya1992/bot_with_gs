@@ -7,7 +7,6 @@ from keyboards.inline_kb import add_driver_inline_kb_with_token
 from services.request_store import save_request
 import uuid
 
-
 router = Router()
 
 
@@ -61,3 +60,10 @@ async def contact_with_administrator(message: Message):
         "✅ Ваше сообщение отправлено администратору!\nОжидайте подключения.",
         reply_markup=wait_button()
     )
+
+
+@router.message(F.text == "Ожидание связи от администратора 🕒 ...")
+async def wait(message: Message):
+    """"Функция для ожидания ответа от администратора"""
+
+    await message.answer("❌ Не надо постоянно нажимать на эту кнопку!\n📨 Ответ будет уже скоро! ")
