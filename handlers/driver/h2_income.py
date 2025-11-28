@@ -80,7 +80,7 @@ async def confirm_income(message: Message, state: FSMContext):
     await message.answer(
         f"✅ Доход зарегистрирован:\n"
         f"Тип: {income_type}\n"
-        f"Сумма: {amount:.2f} ₽\n"
+        f"Сумма: {amount:.2f} byn.\n"
         f"Комментарий: {comment}",
         reply_markup=driver_menu()
     )

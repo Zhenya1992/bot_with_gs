@@ -138,7 +138,7 @@ def get_admin_summary(period:str):
             continue
 
         try:
-            amount = float(amount.replecace(',', '.'))
+            amount = float(amount.replace(',', '.'))
         except ValueError:
             continue
 
