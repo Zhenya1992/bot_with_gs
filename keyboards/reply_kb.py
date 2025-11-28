@@ -80,7 +80,7 @@ def report_menu_admin_kb():
     builder.button(text="Текущий месяц 🈷️")
     builder.button(text="За всё время 🗓️")
     builder.button(text="Назад ◀️")
-    builder.adjust(2, 1, 1)
+    builder.adjust(1, 1, 1, 1)
     return builder.as_markup(resize_keyboard=True)
 
 
