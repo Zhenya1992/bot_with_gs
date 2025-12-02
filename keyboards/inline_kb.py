@@ -15,3 +15,17 @@ def add_driver_inline_kb_with_token(token: str, driver_name: str):
             ]
         ]
     )
+
+def pay_button_kb(amount: float, url: str):
+    """Кнопка оплаты"""
+
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text=f"Произвести оплату {amount} byn",
+                    url=url
+                )
+            ]
+        ]
+    )
