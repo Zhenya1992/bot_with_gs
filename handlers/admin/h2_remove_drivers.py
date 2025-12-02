@@ -3,7 +3,7 @@ from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from services.google_sheets import add_record
-from keyboards.reply_kb import admin_menu
+from keyboards.reply_kb import admin_menu, contact_with_admin_kb
 router = Router()
 
 
@@ -39,8 +39,11 @@ async def confirm_remove_driver(message: Message, state: FSMContext):
         amount=0,
         comment="водитель удален администратором"
     )
+
     await message.answer(
         f"Водитель с id {driver_id} удален",
         reply_markup=admin_menu()
     )
+    await message.bot.send_message(driver_id, "Ваш аккаунт был удален администратором",
+                                   reply_markup=contact_with_admin_kb())
     await state.clear()
