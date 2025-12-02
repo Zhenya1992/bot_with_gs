@@ -40,6 +40,11 @@ def add_record(record_type: str, subcategory: str, amount: float, comment: str, 
 
     update_drivers_in_config()
 
+def remove_user_from_sheet(telegram_id: int):
+    """Удаление пользователя из таблицы Google Sheets"""
+
+    pass # TODO: реализовать удаление пользователя
+
 
 def get_records_by_day(user_id: int, date: str):
     """Функция для получения записей за день"""
@@ -173,3 +178,4 @@ def get_all_data():
     """"Функция для получения всех данных из таблицы"""
 
     return sheet.get_all_values()
+

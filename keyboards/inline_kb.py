@@ -23,7 +23,7 @@ def pay_button_kb(amount: float, url: str):
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text=f"Произвести оплату {amount} byn",
+                    text=f"💳 Произвести оплату {amount} byn",
                     url=url
                 )
             ]
