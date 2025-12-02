@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher
 from config import TOKEN
 import logging
 from handlers.driver import h1_expense, h2_income, h3_report
-from handlers import start
+from handlers import start, h_payment
 from handlers.admin import h0_back_to_admin_menu, h1_add_drivers, h2_remove_drivers, h3_summary, h4_export
 from services.google_sheets import update_drivers_in_config
 
@@ -20,7 +20,7 @@ dp.include_router(h1_add_drivers.router)
 dp.include_router(h2_remove_drivers.router)
 dp.include_router(h3_summary.router)
 dp.include_router(h4_export.router)
-
+dp.include_router(h_payment.router)
 
 async def main():
     """Корутина для запуска бота"""
