@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-
+import logging
 import config
 from config import GOOGLE_CREDENTIALS_PATH, DRIVERS
 
@@ -40,10 +40,35 @@ def add_record(record_type: str, subcategory: str, amount: float, comment: str, 
 
     update_drivers_in_config()
 
-def remove_user_from_sheet(telegram_id: int):
+def remove_user_from_sheet(driver_id: int):
     """Удаление пользователя из таблицы Google Sheets"""
 
-    pass # TODO: реализовать удаление пользователя
+    try:
+        all_data = sheet.get_all_values()
+        if len(all_data) <= 1:
+            logging.basicConfig(level=logging.INFO)
+            return False
+        rows_to_delete = []
+
+        for idx, row in enumerate(all_data[1:], start=2):
+            try:
+                if len(row) > 6 and int(row[6]) == driver_id:
+                    rows_to_delete.append(idx)
+            except (ValueError, IndexError):
+                continue
+
+        if not rows_to_delete:
+            print(f"❌ Пользователь с ID {driver_id} не найден в таблице")
+            return False
+
+        for row_idx in reversed(rows_to_delete):
+            sheet.delete_rows(row_idx)
+        print(f"✅ Пользователь с ID {driver_id} удален из таблицы {rows_to_delete}")
+
+        update_drivers_in_config()
+        return True
+    except Exception as e:
+        print(f"❌ Ошибка при удалении пользователя: {e}")
 
 
 def get_records_by_day(user_id: int, date: str):
