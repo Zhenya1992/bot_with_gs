@@ -65,6 +65,10 @@ def remove_user_from_sheet(driver_id: int):
             sheet.delete_rows(row_idx)
         print(f"✅ Пользователь с ID {driver_id} удален из таблицы {rows_to_delete}")
 
+        if driver_id in config.DRIVERS:
+            config.DRIVERS.remove(driver_id)
+            print(f"✅ ID {driver_id} удален из списка DRIVERS")
+
         update_drivers_in_config()
         return True
     except Exception as e:
