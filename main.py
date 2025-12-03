@@ -6,11 +6,17 @@ from handlers.driver import h1_expense, h2_income, h3_report
 from handlers import start, h_payment
 from handlers.admin import h0_back_to_admin_menu, h1_add_drivers, h2_remove_drivers, h3_summary, h4_export
 from services.google_sheets import update_drivers_in_config
+from middlewares.check_driver import DriverAccessMiddleware
+
 
 logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
+
+dp.message.middleware(DriverAccessMiddleware())
+dp.callback_query.middleware(DriverAccessMiddleware())
+
 dp.include_router(start.router)
 dp.include_router(h1_expense.router)
 dp.include_router(h2_income.router)
