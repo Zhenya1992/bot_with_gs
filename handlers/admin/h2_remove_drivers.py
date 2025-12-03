@@ -2,7 +2,7 @@ from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
-from services.google_sheets import add_record
+from services.google_sheets import remove_user_from_sheet
 from keyboards.reply_kb import admin_menu, contact_with_admin_kb
 router = Router()
 
@@ -31,14 +31,12 @@ async def confirm_remove_driver(message: Message, state: FSMContext):
         await message.answer("Введите корректный id водителя")
         return
 
-    add_record(
-        user_id=driver_id,
-        username="удаленный водитель",
-        record_type="водитель",
-        subcategory="удаление",
-        amount=0,
-        comment="водитель удален администратором"
-    )
+    result = remove_user_from_sheet(driver_id)
+    if not result:
+        await message.answer(f"Водитель с таким {driver_id} не найден")
+        await state.clear()
+
+        return
 
     await message.answer(
         f"Водитель с id {driver_id} удален",
